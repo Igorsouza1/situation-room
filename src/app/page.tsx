@@ -1,11 +1,20 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useForm } from "react-hook-form"
 
 export default function Login() {
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = async (data: any) => {
+    console.log(data)
+  }
+
   return (
     <div className="w-full h-screen lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="flex items-center justify-center py-12">
@@ -19,13 +28,14 @@ export default function Login() {
             </p>
           </div>
           <div className="grid gap-4">
-            <div className="grid gap-2">
+           <form onSubmit={handleSubmit(onSubmit)}>
+           <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
-                id="email"
                 type="email"
                 placeholder="joao@example.com"
                 required
+                {...register("email")}
               />
             </div>
             <div className="grid gap-2">
@@ -38,21 +48,13 @@ export default function Login() {
                   Esqueceu sua senha?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+                <Input id="password" type="password" required {...register("password")}/>
             </div>
             <Button type="submit" className="w-full">
               Entrar
             </Button>
-            {/* <Button variant="outline" className="w-full">
-              Entrar com o Google
-            </Button> */}
+           </form>
           </div>
-          {/* <div className="mt-4 text-center text-sm">
-            Não possui uma conta?{" "}
-            <Link href="#" className="underline">
-              Cadastre-se
-            </Link>
-          </div> */}
         </div>
       </div>
       <div className="hidden bg-muted lg:block">
