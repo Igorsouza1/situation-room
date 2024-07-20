@@ -7,12 +7,27 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 export default function Login() {
   const { register, handleSubmit } = useForm()
+  const router = useRouter()
 
   const onSubmit = async (data: any) => {
-    console.log(data)
+
+
+    const signInData = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false
+    })
+
+    if(signInData?.error) {
+      console.log(signInData.error)
+     } else {
+      router.push('/map')
+     }
   }
 
   return (
@@ -28,7 +43,7 @@ export default function Login() {
             </p>
           </div>
           <div className="grid gap-4">
-           <form onSubmit={handleSubmit(onSubmit)}>
+           <form  onSubmit={handleSubmit(onSubmit)}>
            <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -38,7 +53,7 @@ export default function Login() {
                 {...register("email")}
               />
             </div>
-            <div className="grid gap-2">
+            <div className="grid gap-2 my-5">
               <div className="flex items-center">
                 <Label htmlFor="password">Senha</Label>
                 <Link
