@@ -14,7 +14,7 @@ export default async function Map(){
         )
     }
     return(
-        <div>
+        <div className="flex flex-row">
             <Sidebar />
             <h1>Map Page, bem vindo {session?.user?.name}</h1>
         </div>

@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import { DropdownMenuUser } from "../dropdown/dropdown";
 
 interface IconProps {
   className?: string;
@@ -17,12 +19,6 @@ export function Sidebar() {
         <Button variant="ghost" size="icon">
           <DataIcon className="w-6 h-6" />
         </Button>
-        {/* <Button variant="ghost" size="icon">
-          <CodeIcon className="w-6 h-6" />
-        </Button>
-        <Button variant="ghost" size="icon">
-          <BookIcon className="w-6 h-6" />
-        </Button> */}
         <Button variant="ghost" size="icon">
           <SlidersVerticalIcon className="w-6 h-6" />
         </Button>
@@ -31,32 +27,12 @@ export function Sidebar() {
         <Button variant="ghost" size="icon">
           <HelpIcon className="w-6 h-6" />
         </Button>
-        <Button variant="ghost" size="icon">
-          <UserIcon className="w-6 h-6" />
-        </Button>
+        <DropdownMenuUser />
       </div>
     </div>
   );
 }
 
-function BookIcon(props: IconProps) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-    </svg>
-  );
-}
 
 function DataIcon(props: IconProps) {
   return (
@@ -67,33 +43,13 @@ function DataIcon(props: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M3 3v18h18" />
-      <rect width="4" height="7" x="7" y="10" rx="1" />
-      <rect width="4" height="12" x="15" y="5" rx="1" />
-    </svg>
-  );
-}
-
-function CodeIcon(props: IconProps) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
+      <path d="M3 3v18h18" />
+      <rect width="4" height="7" x="7" y="10" rx="1" />
+      <rect width="4" height="12" x="15" y="5" rx="1" />
     </svg>
   );
 }
@@ -107,9 +63,9 @@ function EarthIcon(props: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54" />
       <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17" />
@@ -165,47 +121,7 @@ function TriangleIcon(props: IconProps) {
   );
 }
 
-function UserIcon(props: IconProps) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
 
-function UsersIcon(props: IconProps) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  );
-}
 
 function HelpIcon(props: IconProps) {
   return (
@@ -216,9 +132,9 @@ function HelpIcon(props: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <circle cx="12" cy="12" r="10" />
       <path d="m4.93 4.93 4.24 4.24" />
@@ -230,22 +146,3 @@ function HelpIcon(props: IconProps) {
   );
 }
 
-function XIcon(props: IconProps) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
