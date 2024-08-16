@@ -76,7 +76,7 @@ export default function Login() {
            <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
-                type="email"
+                type="email" 
                 placeholder="joao@example.com"
                 required
                 {...register("email")}
