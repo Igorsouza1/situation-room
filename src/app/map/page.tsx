@@ -1,6 +1,10 @@
+
+
 import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
 import { Sidebar } from "@/components/sidebar/sidebar"
+import React, { createContext } from 'react';
+import dynamic from "next/dynamic";
 
 export default async function Map(){
     const session = await getServerSession(authOptions)
@@ -13,10 +17,17 @@ export default async function Map(){
             </div>
         )
     }
+
+
+    const Map = dynamic(() => import("../../components/map/mapLeaftjs"), {
+        ssr: false
+      });
     return(
         <div className="flex flex-row">
             <Sidebar />
-            <h1>Map Page, bem vindo {session?.user?.name}</h1>
+            <div className="bg-white-700 mx-auto w-screen">
+                <Map posix={[4.79029, -75.69003]} />
+            </div>
         </div>
     )
 }
