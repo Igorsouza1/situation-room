@@ -48,7 +48,7 @@ export async function DropdownMenuUser() {
           <UserIcon className="w-6 h-6" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent  className="w-56 bg-basebackground">
+      <DropdownMenuContent  className="w-56 bg-basebackground z-10">
         <DropdownMenuLabel >Minha Conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
