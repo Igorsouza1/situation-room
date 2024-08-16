@@ -8,7 +8,7 @@ interface IconProps {
 
 export function Sidebar() {
   return (
-    <div className="flex flex-col items-center w-16 h-screen border-r">
+    <div className="flex flex-col items-center w-16 h-screen border-r bg-basebackground">
       <div className="mt-4 border-b w-full pb-2 flex flex-col justify-center items-center">
         <TriangleIcon className="w-6 h-6" />
       </div>
