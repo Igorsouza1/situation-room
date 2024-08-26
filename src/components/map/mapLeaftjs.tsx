@@ -1,39 +1,57 @@
-"use client"
+"use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngExpression, LatLngTuple } from 'leaflet';
-
+import { MapContainer, TileLayer, Polygon } from "react-leaflet";
+import { LatLngTuple } from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
+import { useEffect, useState } from "react";
+import { convertMultiPolygonToLatLngTuples } from "./utils/multipolygon";
 
 interface MapProps {
-    posix: LatLngExpression | LatLngTuple,
-    zoom?: number,
+    posix: LatLngTuple;
+    zoom?: number;
 }
 
 const defaults = {
-    zoom: 19,
-}
+    zoom: 11,
+};
 
-const Map = (Map: MapProps) => {
-    const { zoom = defaults.zoom, posix } = Map
+const MapLeaflet = () => {
+  const [multiPolygonCoordinates, setMultiPolygonCoordinates] = useState<LatLngTuple[][][]>([]);
 
-    return (
-        <MapContainer
-            center={posix}
-            zoom={zoom}
-            style={{ height: "100%", width: "100%" }}
-        >
-            <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={posix} draggable={false}>
-                <Popup>Hey ! I study here</Popup>
-            </Marker>
-        </MapContainer>
-    )
-}
+  useEffect(() => {
+    const fetchPolygon = async () => {
+      try {
+        const response = await fetch("/api/geometrias");
+        if (!response.ok) {
+          throw new Error("Erro ao buscar geometria");
+        }
+        const data = await response.json();
 
-export default Map
+        // Converte o GeoJSON MultiPolygon usando a função utilitária
+        const multiPolygon = convertMultiPolygonToLatLngTuples(data.coordinates);
+
+        setMultiPolygonCoordinates(multiPolygon);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchPolygon();
+  }, []);
+
+  return (
+    <MapContainer center={[-15.7801, -47.9292]} zoom={13} style={{ height: "100vh", width: "100%" }}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {multiPolygonCoordinates.map((polygon, idx) => (
+        <Polygon key={idx} positions={polygon} />
+      ))}
+    </MapContainer>
+  );
+};
+
+export default MapLeaflet;
