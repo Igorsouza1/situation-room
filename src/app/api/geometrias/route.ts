@@ -1,36 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
-// Configuração da conexão com o banco de dados
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'IHP',
   password: 'ihp@ihp',
-  port: 5432, // Porta padrão do PostgreSQL
+  port: 5432,
 });
 
 export async function GET(req: NextRequest) {
   try {
-    // Conectar ao banco de dados e executar a consulta
     const client = await pool.connect();
     const result = await client.query(`
-      SELECT ST_AsGeoJSON(geom::geometry) as geom
-      FROM "Sala_situacao_RioDaPrata"."Bacia_Rio_Da_Prata"
-      WHERE id = 1;
+      SELECT
+        ST_AsGeoJSON(b.geom::geometry) AS bacia_geom,
+        ST_AsGeoJSON(lr.geom::geometry) AS leito_rio_geom,
+        ST_AsGeoJSON(ba.geom::geometry) AS banhado_geom
+      FROM "Sala_situacao_RioDaPrata"."Bacia_Rio_Da_Prata" b
+      JOIN "Sala_situacao_RioDaPrata"."Leito_Rio_Da_Prata" lr ON lr.id = b.id
+      JOIN "Sala_situacao_RioDaPrata"."Banhado_Rio_Da_Prata_2023" ba ON ba.id = b.id
+      WHERE b.id = 1;
     `);
-    client.release(); // Liberar o cliente após a consulta
+    client.release();
 
     if (result.rows.length === 0) {
-      return NextResponse.json({ error: 'Geometria não encontrada' }, { status: 404 });
+      return NextResponse.json({ error: 'Dados não encontrados' }, { status: 404 });
     }
 
-    // Extrai o GeoJSON da consulta
-    const geoJson = JSON.parse(result.rows[0].geom);
+    const data = {
+      bacia: {
+        nome: result.rows[0].bacia_nome,
+        area: result.rows[0].bacia_area,
+        geometria: JSON.parse(result.rows[0].bacia_geom),
+      },
+      leito_rio: {
+        geometria: JSON.parse(result.rows[0].leito_rio_geom),
+      },
+      banhado: {
+        geometria: JSON.parse(result.rows[0].banhado_geom),
+      }
+    };
 
-    return NextResponse.json(geoJson);
+    return NextResponse.json(data);
   } catch (error) {
-    console.error('Erro ao buscar geometria:', error);
-    return NextResponse.json({ error: 'Erro ao buscar geometria' }, { status: 500 });
+    console.error('Erro ao buscar dados:', error);
+    return NextResponse.json({ error: 'Erro ao buscar dados' }, { status: 500 });
   }
 }
