@@ -26,7 +26,7 @@ export default async function Map(){
         <div className="flex flex-row">
             <Sidebar />
             <div className="bg-white-700 mx-auto w-screen z-0">
-                <Map posix={[-21.232577, -56.608978]} />
+                <Map />
             </div>
         </div>
     )
