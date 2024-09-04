@@ -17,8 +17,6 @@ export default async function Map(){
             </div>
         )
     }
-
-
     const Map = dynamic(() => import("../../components/map/mapLeaftjs"), {
         ssr: false
       });
