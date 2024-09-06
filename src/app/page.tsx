@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form"
-import { signIn } from "next-auth/react"
+
+// import { signIn } from "next-auth/react"
+
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 
 
+import { signIn, confirmSignIn } from 'aws-amplify/auth';
 
 export default function Login() {
   const { register, handleSubmit } = useForm()
@@ -20,30 +23,54 @@ export default function Login() {
 
   const onSubmit = async (data: any) => {
 
+    try {
+      // Chama a API signIn do Amplify Auth
+      const { nextStep } = await signIn({
+        username: data.email,
+        password: data.password,
+      });
 
-    const signInData = await signIn('credentials', {
-      email: data.email,
-      password: data.password,
-      redirect: false
-    })
 
-    if(signInData?.error) {
+      if (nextStep === 'DONE') {
+        toast({
+          variant: 'default',
+          duration: 3000,
+          title: 'Sucesso',
+          description: 'Login efetuado!',
+        });
+        router.push('/map'); // Redireciona para a página desejada
+      }
+    } catch (error) {
       toast({
-        variant: "destructive",
+        variant: 'destructive',
         duration: 3000,
-        title: "Erro de Login",
-        description: "Email ou senha incorreto",
-      })
-     } else {
-      toast({
-        variant: "default",
-        duration: 3000,
-        title: "Sucesso",
-        description: "Efetuando login",
-      })
-      router.refresh()
-      router.push('/map')
-     }
+        title: 'Erro de Login',
+        description: error.message || 'Ocorreu um erro ao tentar logar.',
+      });
+    }
+    // const signInData = await signIn('credentials', {
+    //   email: data.email,
+    //   password: data.password,
+    //   redirect: false
+    // })
+
+    // if(signInData?.error) {
+    //   toast({
+    //     variant: "destructive",
+    //     duration: 3000,
+    //     title: "Erro de Login",
+    //     description: "Email ou senha incorreto",
+    //   })
+    //  } else {
+    //   toast({
+    //     variant: "default",
+    //     duration: 3000,
+    //     title: "Sucesso",
+    //     description: "Efetuando login",
+    //   })
+    //   router.refresh()
+    //   router.push('/map')
+    //  }
   }
 
   return (

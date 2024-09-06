@@ -10,13 +10,7 @@ export default async function Map(){
     const session = await getServerSession(authOptions)
     console.log(session)
 
-    if(!session){
-        return(
-            <div>
-                <h1>Você não está logado</h1>
-            </div>
-        )
-    }
+  
     const Map = dynamic(() => import("../../components/map/mapLeaftjs"), {
         ssr: false
       });

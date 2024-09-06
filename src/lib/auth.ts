@@ -10,34 +10,44 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/", // Página de login personalizada
+    signIn: "/",
+    signOut: "/goodbye",
+    error: "/auth/error",
+    newUser: "/welcome",
   },
   providers: [
-    // Amazon Cognito Provider
     CognitoProvider({
       clientId: process.env.COGNITO_CLIENT_ID ?? "",
       clientSecret: process.env.COGNITO_CLIENT_SECRET ?? "",
-      issuer: process.env.COGNITO_ISSUER, // URL no formato: https://cognito-idp.{region}.amazonaws.com/{PoolId}
+      issuer: process.env.COGNITO_ISSUER,
     }),
   ],
+
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         return {
           ...token,
-          email: user.email,
+          username: user.username,
         };
       }
       return token;
     },
+
     async session({ session, token }) {
       return {
         ...session,
         user: {
           ...session.user,
-          email: token.email,
+          username: token.username,
         },
       };
+    },
+
+    // Simplificação no redirecionamento
+    async redirect({ baseUrl }) {
+      console.log("Redirecionando para:", `${baseUrl}/map`); // Verificar o valor da URL
+      return `${baseUrl}/map`; // Sempre redireciona para /map após o login
     },
   },
 };
