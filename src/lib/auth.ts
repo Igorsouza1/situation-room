@@ -1,8 +1,7 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { db } from "./db";
-import { compare } from "bcrypt";
+import CognitoProvider from "next-auth/providers/cognito";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { db } from "./db"; // Sua conexão com o Prisma
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -11,72 +10,34 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/",
+    signIn: "/", // Página de login personalizada
   },
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: {
-          label: "email",
-          type: "email",
-          placeholder: "joao@example.com",
-        },
-        password: { label: "password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-        
-
-        const existingUser = await db.user.findUnique({
-          where: {
-            email: credentials?.email,
-          },
-        });
-
-        if (!existingUser) {
-          return null;
-        }
-
-        const passwordMatch = await compare(
-          credentials.password,
-          existingUser.passwordHash
-        );
-
-        if (!passwordMatch) {
-          return null;
-        }
-
-        return {
-          id: `${existingUser.id}`,
-          username: existingUser.username,
-          email: existingUser.email,
-          name: existingUser.nome,
-        };
-      },
+    // Amazon Cognito Provider
+    CognitoProvider({
+      clientId: process.env.COGNITO_CLIENT_ID ?? "",
+      clientSecret: process.env.COGNITO_CLIENT_SECRET ?? "",
+      issuer: process.env.COGNITO_ISSUER, // URL no formato: https://cognito-idp.{region}.amazonaws.com/{PoolId}
     }),
   ],
-
   callbacks: {
-    async jwt({ token, user}) {
-        if(user){
-            return{
-                ...token,
-                username: user.username
-            }
-        }
-        return token
+    async jwt({ token, user }) {
+      if (user) {
+        return {
+          ...token,
+          email: user.email,
+        };
+      }
+      return token;
     },
     async session({ session, token }) {
       return {
         ...session,
         user: {
-            ...session.user,
-            username: token.username
-        }
-      }
+          ...session.user,
+          email: token.email,
+        },
+      };
     },
   },
 };
