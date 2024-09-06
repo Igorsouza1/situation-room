@@ -8,27 +8,65 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from "react-hook-form"
 
-import { signIn } from "next-auth/react"
+// import { signIn } from "next-auth/react"
 
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 
-
 // import { signIn, confirmSignIn } from 'aws-amplify/auth';
+import { signIn, confirmSignIn } from "aws-amplify/auth";
+
+
+type loginData = {
+  email: string
+  password: string
+}
 
 export default function Login() {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm<loginData>()
   const router = useRouter()
   const { toast } = useToast()
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: loginData) => {
 
-    // try {
-    //   // Chama a API signIn do Amplify Auth
-    //   const { nextStep } = await signIn({
-    //     username: data.email,
-    //     password: data.password,
-    //   });
+    try{
+      const { isSignedIn, nextStep } = await signIn({
+        username: data.email,
+        password: data.password,
+      });
+  
+      console.log(isSignedIn, nextStep);
+  
+      if(nextStep.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED"){
+        toast({
+          variant: "default",
+          duration: 3000,
+          title: "Sucesso",
+          description: "Login efetuado!",
+        });
+        await confirmSignIn({
+          challengeResponse: data.password,
+        });
+      } if(nextStep.signInStep === 'DONE') {
+        toast({
+          variant: "default",
+          duration: 3000,
+          title: "Sucesso",
+          description: "Login efetuado!",
+        });
+        router.push('/map');
+      }
+    }
+    catch(error){
+      toast({
+        variant: "destructive",
+        duration: 3000,
+        title: "Erro de Login",
+        description: "Ocorreu um erro ao fazer login. Usuario ou senha incorreto",
+      });
+    
+    }
+
 
 
     //   if (nextStep === 'DONE') {
@@ -52,29 +90,29 @@ export default function Login() {
 
 
 
-    const signInData = await signIn('credentials', {
-      email: data.email,
-      password: data.password,
-      redirect: false
-    })
+    // const signInData = await signIn('credentials', {
+    //   email: data.email,
+    //   password: data.password,
+    //   redirect: false
+    // })
 
-    if(signInData?.error) {
-      toast({
-        variant: "destructive",
-        duration: 3000,
-        title: "Erro de Login",
-        description: "Email ou senha incorreto",
-      })
-     } else {
-      toast({
-        variant: "default",
-        duration: 3000,
-        title: "Sucesso",
-        description: "Efetuando login",
-      })
-      router.refresh()
-      router.push('/map')
-     }
+    // if(signInData?.error) {
+    //   toast({
+    //     variant: "destructive",
+    //     duration: 3000,
+    //     title: "Erro de Login",
+    //     description: "Email ou senha incorreto",
+    //   })
+    //  } else {
+    //   toast({
+    //     variant: "default",
+    //     duration: 3000,
+    //     title: "Sucesso",
+    //     description: "Efetuando login",
+    //   })
+    //   router.refresh()
+    //   router.push('/map')
+    //  }
   }
 
   return (

@@ -13,34 +13,34 @@ const MapLeaflet = () => {
   const [leitoRio, setLeitoRio] = useState<LatLngTuple[][]>([]);
   const [banhado, setBanhado] = useState<LatLngTuple[][][]>([]);
 
-  useEffect(() => {
-    const fetchGeometries = async () => {
-      try {
-        const response = await fetch("/api/geometrias");
-        if (!response.ok) {
-          throw new Error("Erro ao buscar dados");
-        }
-        const data = await response.json();
+  // useEffect(() => {
+  //   const fetchGeometries = async () => {
+  //     try {
+  //       // const response = await fetch("/api/geometrias");
+  //   //     if (!response.ok) {
+  //   //       throw new Error("Erro ao buscar dados");
+  //   //     }
+  //   //     const data = await response.json();
 
-        // Verifica e converte as geometrias conforme o tipo
-        if (data.bacia.geometria.type === "MultiPolygon") {
-          setBacia(convertMultiPolygonToLatLngTuples(data.bacia.geometria.coordinates));
-        }
+  //   //     // Verifica e converte as geometrias conforme o tipo
+  //   //     if (data.bacia.geometria.type === "MultiPolygon") {
+  //   //       setBacia(convertMultiPolygonToLatLngTuples(data.bacia.geometria.coordinates));
+  //   //     }
 
-        if (data.leito_rio.geometria.type === "MultiLineString") {
-          setLeitoRio(convertMultiLineStringToLatLngTuples(data.leito_rio.geometria.coordinates));
-        }
+  //   //     if (data.leito_rio.geometria.type === "MultiLineString") {
+  //   //       setLeitoRio(convertMultiLineStringToLatLngTuples(data.leito_rio.geometria.coordinates));
+  //   //     }
 
-        if (data.banhado.geometria.type === "MultiPolygon") {
-          setBanhado(convertMultiPolygonToLatLngTuples(data.banhado.geometria.coordinates));
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  //   //     if (data.banhado.geometria.type === "MultiPolygon") {
+  //   //       setBanhado(convertMultiPolygonToLatLngTuples(data.banhado.geometria.coordinates));
+  //   //     }
+  //   //   } catch (error) {
+  //   //     console.error(error);
+  //   //   }
+  //   // };
 
-    fetchGeometries();
-  }, []);
+  //   // fetchGeometries();
+  // }, []);
 
   return (
     <MapContainer center={[-21.327773, -56.694734]} zoom={10} style={{ height: "100vh", width: "100%" }}>
