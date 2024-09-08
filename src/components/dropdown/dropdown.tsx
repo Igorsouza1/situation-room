@@ -31,7 +31,6 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import { getServerSession } from "next-auth"
 import { Logout } from "../logout/logout";
 
 
