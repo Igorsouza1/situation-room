@@ -1,7 +1,16 @@
-// /utils/amplify-server-util.ts
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
-import  config  from "../../amplify_outputs.json";
+
+// Configuração do Amplify usando variáveis de ambiente
+const config = {
+  Auth: {
+    Cognito:{
+      userPoolId: process.env.user_pool_id ??  '',
+      userPoolClientId: process.env.user_pool_client_id ?? '',
+    }
+  }
+ 
+};
 
 export const { runWithAmplifyServerContext } = createServerRunner({
-  config,
+  config, // Usa a configuração com variáveis de ambiente
 });
