@@ -9,7 +9,6 @@ console.log("Cognito User Pool ID:", process.env.NEXT_PUBLIC_COGNITO_USER_POOL_I
 const config = process.env.NODE_ENV === 'production' 
   ? {
       Auth: {
-        Cognito: {
           identityPoolId: process.env.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID!,
           region: process.env.NEXT_PUBLIC_AWS_REGION!,
           userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
@@ -30,7 +29,7 @@ const config = process.env.NODE_ENV === 'production'
             requireNumbers: true,
             requireSpecialCharacters: true,
           },
-        }
+        
       },
     }
   : require("../../amplify_outputs.json");
