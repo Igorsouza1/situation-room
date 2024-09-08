@@ -3,8 +3,10 @@ import { Amplify } from "aws-amplify";
 
 Amplify.configure({
   Auth: {
-    userPoolId: process.env.NEXT_PUBLIC_AWS_USER_POOL_ID,
-    userPoolWebClientId: process.env.NEXT_PUBLIC_AWS_USER_POOL_CLIENT_ID,
+    Cognito:{
+      userPoolId: process.env.user_pool_id ??  '',
+      userPoolClientId: process.env.user_pool_client_id ?? '',
+    }
   }
 }, { ssr: true }); // Habilita SSR
 
