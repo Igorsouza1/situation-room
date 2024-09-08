@@ -12,6 +12,9 @@ const config = process.env.NODE_ENV === 'production'
         region: process.env.NEXT_PUBLIC_AWS_REGION!,
         userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
         userPoolWebClientId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID!,
+        loginWith: {
+          "email": true,
+        }
     },
   }
   : require("../../amplify_outputs.json");
