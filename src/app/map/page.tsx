@@ -1,14 +1,11 @@
 
 
-import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
 import { Sidebar } from "@/components/sidebar/sidebar"
 import React, { createContext } from 'react';
 import dynamic from "next/dynamic";
 
 export default async function Map(){
-    const session = await getServerSession(authOptions)
-    console.log(session)
 
   
     const Map = dynamic(() => import("../../components/map/mapLeaftjs"), {

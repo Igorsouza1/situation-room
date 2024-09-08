@@ -31,13 +31,11 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
 import { Logout } from "../logout/logout";
 
 
 export async function DropdownMenuUser() {
-  const session = await getServerSession(authOptions)
 
   
 
