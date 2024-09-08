@@ -5,6 +5,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 import { Amplify } from "aws-amplify";
+import ConfigureAmplifyClientSide from "@/config/ConfigureAmplifyClientSide";
 // Configuração do Amplify usando variáveis de ambiente
 const amplifyConfig = {
   Auth: {
