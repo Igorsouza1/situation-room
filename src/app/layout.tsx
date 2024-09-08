@@ -4,11 +4,7 @@ import "./globals.css";
 
 import { Toaster } from "@/components/ui/toaster";
 
-import {Amplify} from "aws-amplify";
-import config from "../../amplify_outputs.json"
-import ConfigureAmplifyClientSide from "../config/configureAmplifyonClient";
-
-Amplify.configure({ ...config }, { ssr: true })
+import ConfigureAmplifyClientSide from '@/config/configureAmplifyonClient';
 
 
 const inter = Inter({ subsets: ["latin"] });
