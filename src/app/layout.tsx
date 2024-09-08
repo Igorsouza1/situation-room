@@ -5,10 +5,19 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 import { Amplify } from "aws-amplify";
-import config from "../../amplify_outputs.json";
-import ConfigureAmplifyClientSide from "@/config/ConfigureAmplifyClientSide";
+// Configuração do Amplify usando variáveis de ambiente
+const amplifyConfig = {
+  Auth: {
+    Cognito:{
+      userPoolId: process.env.user_pool_id ??  '',
+      userPoolClientId: process.env.user_pool_client_id ?? '',
+    }
+  }
+};
 
-Amplify.configure({ ...config }, { ssr: true });
+// Configura o Amplify
+Amplify.configure(amplifyConfig, { ssr: true }); // ssr: true para garantir SSR com Next.js
+
 
 
 
