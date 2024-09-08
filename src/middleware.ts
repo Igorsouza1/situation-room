@@ -20,12 +20,12 @@ export async function middleware(request: NextRequest) {
   });
 
   if (!authenticated) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
   return response;
 }
 
 export const config = {
-  matcher: ['/protected-route/:path*'],  // Defina aqui as rotas protegidas
+  matcher: ['/map'],  // Defina aqui as rotas protegidas
 };
