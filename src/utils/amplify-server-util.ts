@@ -1,6 +1,9 @@
 // utils/amplifyServerUtils.ts
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
 
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("Cognito User Pool ID:", process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID);
+
 // O mesmo procedimento para produção e desenvolvimento
 const config = process.env.NODE_ENV === 'production' 
   ? {

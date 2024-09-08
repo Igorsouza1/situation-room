@@ -2,6 +2,9 @@
 "use client";
 import { Amplify } from "aws-amplify";
 
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("Cognito User Pool ID:", process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID);
+
 // Verificar se está em produção ou desenvolvimento
 const config = process.env.NODE_ENV === 'production' 
   ? {
@@ -16,7 +19,13 @@ const config = process.env.NODE_ENV === 'production'
     }
   : require("../../amplify_outputs.json");
 
-Amplify.configure(config, { ssr: true });
+  try {
+    Amplify.configure(config, { ssr: true });
+    console.log("Amplify configurado com sucesso.");
+  } catch (error) {
+    console.error("Erro ao configurar o Amplify:", error);
+  }
+  
 
 export default function ConfigureAmplifyClientSide() {
   return null;

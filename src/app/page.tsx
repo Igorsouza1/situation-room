@@ -34,8 +34,8 @@ export default function Login() {
         username: data.email,
         password: data.password,
       });
-  
-      console.log(isSignedIn, nextStep);
+      
+      console.log("Chegam aqui", isSignedIn, nextStep);
   
       if(nextStep.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED"){
         toast({
