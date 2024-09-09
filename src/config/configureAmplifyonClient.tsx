@@ -21,7 +21,10 @@ const config = process.env.NODE_ENV === 'production'
   try {
     Amplify.configure(config, { ssr: true });
     console.log("Amplify configurado com sucesso.");
+    console.log(config)
+
   } catch (error) {
+    console.log(config)
     console.error("Erro ao configurar o Amplify:", error);
   }
   
