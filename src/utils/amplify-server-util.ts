@@ -8,15 +8,11 @@ console.log("Cognito User Pool ID:", process.env.NEXT_PUBLIC_COGNITO_USER_POOL_I
 const config = process.env.NODE_ENV === 'production' 
   ? {
     Auth: {
-         identityPoolId: process.env.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID!,
-          region: process.env.NEXT_PUBLIC_AWS_REGION!,
-          userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
-          userPoolWebClientId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID!,
         Cognito:{
           identityPoolId: process.env.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID!,
           region: process.env.NEXT_PUBLIC_AWS_REGION!,
           userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
-          userPoolWebClientId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID!,
+          userPoolClientId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID!,
           loginWith:{
             email: true
           }
@@ -29,3 +25,23 @@ const config = process.env.NODE_ENV === 'production'
 export const { runWithAmplifyServerContext } = createServerRunner({
   config,
 });
+
+
+// Auth: {
+//   Cognito: {
+//     userPoolClientId: 'abcdefghij1234567890',
+//     userPoolId: 'us-east-1_abcd1234',
+//     loginWith: { // Optional
+//       oauth: {
+//         domain: 'abcdefghij1234567890-29051e27.auth.us-east-1.amazoncognito.com',
+//         scopes: ['openid email phone profile aws.cognito.signin.user.admin '],
+//         redirectSignIn: ['http://localhost:3000/','https://example.com/'],
+//         redirectSignOut: ['http://localhost:3000/','https://example.com/'],
+//         responseType: 'code',
+//       }
+//       username: 'true',
+//       email: 'false', // Optional
+//       phone: 'false', // Optional
+//     }
+//   }
+// }
