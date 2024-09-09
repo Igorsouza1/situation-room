@@ -7,10 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
-
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-
 import { signIn, confirmSignIn } from "aws-amplify/auth";
 
 type loginData = {
@@ -37,12 +35,13 @@ export default function Login() {
           variant: "default",
           duration: 3000,
           title: "Sucesso",
-          description: "Login efetuado!",
+          description: "Seja bem vindo, estamos preparando sua conta!",
         });
         await confirmSignIn({
           challengeResponse: data.password,
-        });
-        router.push("/map");
+        }).then(() => {
+          router.push("/map");
+        })
       }
       if (nextStep.signInStep === "DONE") {
         toast({
