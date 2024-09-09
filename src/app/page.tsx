@@ -58,6 +58,7 @@ export default function Login() {
       }
     }
     catch(error){
+      console.log("Erro de login: ", error);
       toast({
         variant: "destructive",
         duration: 3000,
