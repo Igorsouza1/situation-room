@@ -22,6 +22,7 @@ const config =
       }
     : require("../../amplify_outputs.json");
 
+
 try {
   Amplify.configure(config, { ssr: true });
   console.log("Amplify configured successfully");

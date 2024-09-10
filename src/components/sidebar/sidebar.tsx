@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { DropdownMenuUser } from "../dropdown/dropdown";
+import Link from 'next/link'; // Importa o Link do Next.js
 
 interface IconProps {
   className?: string;
@@ -13,26 +13,33 @@ export function Sidebar() {
         <TriangleIcon className="w-6 h-6 " />
       </div>
       <div className="flex flex-col items-center py-4 space-y-4">
-        <Button variant="ghost" size="icon">
-          <EarthIcon className="w-6 h-6" />
-        </Button>
-        <Button variant="ghost" size="icon">
-          <DataIcon className="w-6 h-6" />
-        </Button>
-        <Button variant="ghost" size="icon">
-          <SlidersVerticalIcon className="w-6 h-6" />
-        </Button>
+        <Link href="/map" passHref>
+          <Button variant="ghost" size="icon">
+            <EarthIcon className="w-6 h-6" />
+          </Button>
+        </Link>
+        <Link href="/dashboard" passHref>
+          <Button variant="ghost" size="icon">
+            <DataIcon className="w-6 h-6" />
+          </Button>
+        </Link>
+        <Link href="/config" passHref>
+          <Button variant="ghost" size="icon">
+            <SlidersVerticalIcon className="w-6 h-6" />
+          </Button>
+        </Link>
       </div>
       <div className="flex flex-col items-center mt-auto py-4 space-y-4">
-        <Button variant="ghost" size="icon">
-          <HelpIcon className="w-6 h-6" />
-        </Button>
+        <Link href="/help" passHref>
+          <Button variant="ghost" size="icon">
+            <HelpIcon className="w-6 h-6" />
+          </Button>
+        </Link>
         <DropdownMenuUser />
       </div>
     </div>
   );
 }
-
 
 function DataIcon(props: IconProps) {
   return (
