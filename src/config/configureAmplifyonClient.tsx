@@ -2,8 +2,6 @@
 "use client";
 import { Amplify } from "aws-amplify";
 
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("Cognito User Pool ID:",process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID);
 
 // Verificar se está em produção ou desenvolvimento
 const config =
