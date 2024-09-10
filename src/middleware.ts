@@ -23,7 +23,6 @@ export async function middleware(request: NextRequest) {
 
   // Se o usuário não está autenticado, redireciona para a página de login
   if (!authenticated) {
-    console.log('Usuário não autenticado');
     if (pathname !== '/') {
       // Redireciona para a página de login, evitando loops infinitos
       return NextResponse.redirect(new URL('/', request.url));
@@ -31,7 +30,6 @@ export async function middleware(request: NextRequest) {
   } else {
     // Se o usuário está autenticado e tenta acessar a página inicial, redireciona para o mapa
     if (pathname === '/') {
-      console.log('Usuário autenticado, redirecionando para /map');
       return NextResponse.redirect(new URL('/map', request.url));
     }
   }
