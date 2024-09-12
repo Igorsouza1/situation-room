@@ -2,7 +2,6 @@
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
 
 
-
 // O mesmo procedimento para produção e desenvolvimento
 const config = process.env.NODE_ENV === 'production' 
   ? {
@@ -24,6 +23,7 @@ const config = process.env.NODE_ENV === 'production'
 
 
 export const { runWithAmplifyServerContext } = createServerRunner({
+  
   config,
 });
 

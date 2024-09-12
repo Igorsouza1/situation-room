@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
         // Verifica se a sessão possui tokens (ou seja, o usuário está autenticado)
         return session && session.tokens !== undefined;
       } catch (error) {
-        console.error('Erro ao buscar sessão:', error);
+        console.error('Erro ao buscar sessão:');
         return false;
       }
     },

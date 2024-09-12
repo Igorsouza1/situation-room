@@ -2,7 +2,6 @@
 "use client";
 import { Amplify } from "aws-amplify";
 
-
 // Verificar se está em produção ou desenvolvimento
 const config =
   process.env.NODE_ENV === "production"
@@ -26,6 +25,7 @@ const config =
 try {
   Amplify.configure(config, { ssr: true });
   console.log("Amplify configured successfully");
+
 } catch (error) {
   console.error("Error configuring Amplify:", error);
 }
