@@ -1,6 +1,6 @@
 // utils/amplifyServerUtils.ts
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
-
+import { fetchAuthSession, signOut } from "aws-amplify/auth";
 
 // O mesmo procedimento para produção e desenvolvimento
 const config = process.env.NODE_ENV === 'production' 
@@ -17,6 +17,25 @@ const config = process.env.NODE_ENV === 'production'
         }
   
     },
+    API: {
+      GraphQL: {
+        headers: async () => {
+          try {
+            const currentSession = await fetchAuthSession();
+            if (currentSession.tokens) {
+              const idToken = currentSession.tokens.idToken?.toString();
+              return { Authorization: idToken };
+            } else {
+              signOut();
+              return {}; // Retornar um objeto vazio em vez de undefined
+            }
+          } catch (error) {
+            signOut();
+            return {}; // Retornar um objeto vazio em caso de erro
+          }
+        }
+      }
+    }
   }
   : require("../../amplify_outputs.json");
 
