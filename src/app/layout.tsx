@@ -6,6 +6,32 @@ import { Toaster } from "@/components/ui/toaster";
 
 import ConfigureAmplifyClientSide from '@/config/configureAmplifyonClient';
 
+import { Amplify } from "aws-amplify";
+import outputs from "../../amplify_outputs.json";
+import { fetchAuthSession, signOut } from "aws-amplify/auth";
+
+Amplify.configure(outputs, { ssr: true,
+  API: {
+    GraphQL: {
+      headers: async () => {
+        try {
+          const currentSession = await fetchAuthSession();
+          if (currentSession.tokens) {
+            const idToken = currentSession.tokens.idToken?.toString();
+            return { Authorization: idToken };
+          } else {
+            signOut();
+            return {}; // Retornar um objeto vazio em vez de undefined
+          }
+        } catch (error) {
+          signOut();
+          return {}; // Retornar um objeto vazio em caso de erro
+        }
+      }
+    }
+  }
+});
+
 
 const inter = Inter({ subsets: ["latin"] });
 

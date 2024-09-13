@@ -4,6 +4,7 @@ import { Sidebar } from "@/components/sidebar/sidebar"
 import React from 'react';
 import dynamic from "next/dynamic";
 
+
 export default async function Map(){
   
     const Map = dynamic(() => import("../../components/map/mapLeaftjs"), {

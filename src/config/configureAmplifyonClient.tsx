@@ -1,6 +1,7 @@
 // components/ConfigureAmplifyClientSide.tsx
 "use client";
 import { Amplify } from "aws-amplify";
+import { fetchAuthSession, signOut } from "aws-amplify/auth";
 
 // Verificar se está em produção ou desenvolvimento
 const config =
@@ -23,7 +24,27 @@ const config =
 
 
 try {
-  Amplify.configure(config, { ssr: true });
+  Amplify.configure(config, { ssr: true,
+    API: {
+      GraphQL: {
+        headers: async () => {
+          try {
+            const currentSession = await fetchAuthSession();
+            if (currentSession.tokens) {
+              const idToken = currentSession.tokens.idToken?.toString();
+              return { Authorization: idToken };
+            } else {
+              signOut();
+              return {}; // Retornar um objeto vazio em vez de undefined
+            }
+          } catch (error) {
+            signOut();
+            return {}; // Retornar um objeto vazio em caso de erro
+          }
+        }
+      }
+    }
+  });
   console.log("Amplify configured successfully");
 
 } catch (error) {
