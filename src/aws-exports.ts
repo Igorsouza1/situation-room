@@ -19,8 +19,8 @@ const config =  {
   data: {
     aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
     url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
-    default_authorization_type: 'userPool',
-    authorization_types: ['userPool'],
+    default_authorization_type: 'AMAZON_COGNITO_USER_POOLS',
+    authorization_types: ['AMAZON_COGNITO_USER_POOLS'],
     dataStore: {
       dataStoreName: 'InitialGeometry',
       dataStoreType: 'AMAZON_DYNAMODB',
