@@ -24,6 +24,8 @@ const MapLeaflet = () => {
       try {
         
         console.log("Client: ", client)
+        console.log("Client.models: ", client.models)
+        console.log("Client.models.InitialGeometry: ", client.models.InitialGeometry)
         const response = await client.models.InitialGeometry.list({
           filter: {
             type: {
