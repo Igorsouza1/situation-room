@@ -30,6 +30,7 @@ const MapLeaflet = () => {
           }
         });
         console.log(response);
+        console.log(response.errors)
       } catch (error) {
         console.error("Error fetching initial geometries:", error);
       }
