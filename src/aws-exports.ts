@@ -23,6 +23,8 @@ const config =  {
     authorization_types: ['userPool'],
     dataStore: {
       dataStoreName: 'InitialGeometry',
+      dataStoreType: 'AMAZON_DYNAMODB',
+      datasource: 'InitialGeometryTable',
     },
 
   },
