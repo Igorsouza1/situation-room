@@ -24,12 +24,34 @@ const config =
             },
           },
         },
+        
         data: {
           aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
           url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
           default_authorization_type: 'AMAZON_COGNITO_USER_POOLS',
           authorization_types: ['AMAZON_COGNITO_USER_POOLS'],
         },
+        API: {
+          GraphQL: {
+            headers: async () => {
+              try {
+                const currentSession = await fetchAuthSession();
+                if (currentSession.tokens) {
+                  const idToken = currentSession.tokens.idToken?.toString();
+                  return { Authorization: idToken };
+                } else {
+                  signOut();
+                  return {}; // Retornar um objeto vazio em vez de undefined
+                }
+              } catch (error) {
+                signOut();
+                return {}; // Retornar um objeto vazio em caso de erro
+              }
+            },
+          },
+        },
+        
+        
       }
     : outputs; // Usar as saídas do amplify_outputs.json para desenvolvimento
 

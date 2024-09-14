@@ -26,7 +26,26 @@ const config =
           url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
           default_authorization_type: 'AMAZON_COGNITO_USER_POOLS', // ou outro tipo de autorização
           authorization_types: ['AMAZON_COGNITO_USER_POOLS'], // Lista de tipos de autorização
-        }
+        },
+        API: {
+          GraphQL: {
+            headers: async () => {
+              try {
+                const currentSession = await fetchAuthSession();
+                if (currentSession.tokens) {
+                  const idToken = currentSession.tokens.idToken?.toString();
+                  return { Authorization: idToken };
+                } else {
+                  signOut();
+                  return {}; // Retornar um objeto vazio em vez de undefined
+                }
+              } catch (error) {
+                signOut();
+                return {}; // Retornar um objeto vazio em caso de erro
+              }
+            },
+          },
+        },
       }
     : require("../../amplify_outputs.json");
 
