@@ -47,7 +47,7 @@ try {
   console.error("Error configuring Amplify:", error);
 }
 
-
+console.log(config)
 
 const inter = Inter({ subsets: ["latin"] });
 

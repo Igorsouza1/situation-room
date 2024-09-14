@@ -12,10 +12,10 @@ import "leaflet-defaulticon-compatibility";
 // import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import { init } from 'next/dist/compiled/webpack/webpack';
 
 
 const client = generateClient<Schema>();
+console.log(client)
 
 const MapLeaflet = () => {
   const [initialGeometry, setInitialGeometry] = useState<Schema["InitialGeometry"]["type"][]>([]);
@@ -26,7 +26,9 @@ const MapLeaflet = () => {
         type: { eq: "FeatureCollection" }
       }
     });
+    console.log(errors)
     setInitialGeometry(items);
+    console.log(items);
   };
 
   useEffect(() => {
