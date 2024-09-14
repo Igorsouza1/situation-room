@@ -5,7 +5,7 @@ import { fetchAuthSession, signOut } from "aws-amplify/auth";
 import config from '@/aws-exports';
 
 
-console.log("process.env.NODE_ENV:", process.env.NODE_ENV);
+console.log("process.env.NODE_ENV:", process.env.NODE_ENV, "client side");
 // Verificar se está em produção ou desenvolvimento
 const awsconfig =
   process.env.NODE_ENV === "production"
@@ -38,7 +38,7 @@ try {
       }
     }
   });
-  console.log("Amplify configured successfully");
+  console.log("Amplify configured successfully client side");
   console.log(awsconfig)
 } catch (error) {
   console.error("Error configuring Amplify:", error);

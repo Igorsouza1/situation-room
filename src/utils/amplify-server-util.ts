@@ -2,6 +2,8 @@
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
 import config from "@/aws-exports";
 
+
+console.log("process.env.NODE_ENV:", process.env.NODE_ENV, "server side");
 // O mesmo procedimento para produção e desenvolvimento
 const awsconfig = process.env.NODE_ENV === 'production' 
   ? config
