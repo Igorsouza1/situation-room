@@ -4,6 +4,8 @@ import { Amplify } from "aws-amplify";
 import { fetchAuthSession, signOut } from "aws-amplify/auth";
 import config from '@/aws-exports';
 
+
+console.log("process.env.NODE_ENV:", process.env.NODE_ENV);
 // Verificar se está em produção ou desenvolvimento
 const awsconfig =
   process.env.NODE_ENV === "production"
@@ -17,6 +19,7 @@ try {
       GraphQL: {
         headers: async () => {
           try {
+            console.log("Fetching auth session");
             const currentSession = await fetchAuthSession();
             console.log(currentSession);
             if (currentSession.tokens) {

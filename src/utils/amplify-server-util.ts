@@ -1,6 +1,5 @@
 // utils/amplifyServerUtils.ts
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
-import { fetchAuthSession, signOut } from "aws-amplify/auth";
 import config from "@/aws-exports";
 
 // O mesmo procedimento para produção e desenvolvimento
