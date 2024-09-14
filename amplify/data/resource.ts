@@ -10,7 +10,7 @@ const schema = a.schema({
       geometry: a.json(),
 
     })
-    .authorization((allow) => [allow.authenticated()]),
+    .authorization((allow) => [allow.guest()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
