@@ -29,12 +29,16 @@ const MapLeaflet = () => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchInitialGeometry();
-    }, 5000); // 5000 ms = 5 seconds
+    if(typeof window !== 'undefined'){
 
+      const timer = setTimeout(() => {
+        fetchInitialGeometry();
+      }, 5000); // 5000 ms = 5 seconds
+      
     // Cleanup function to clear the timeout if the component unmounts
     return () => clearTimeout(timer);
+    }
+
   }, []);
 
   console.log(initialGeometry);
