@@ -22,6 +22,8 @@ const MapLeaflet = () => {
     // Mover a definição de `fetchInitialGeometry` para dentro do `useEffect`
     async function fetchInitialGeometry() {
       try {
+        
+        console.log("Client: ", client)
         const response = await client.models.InitialGeometry.list({
           filter: {
             type: {
