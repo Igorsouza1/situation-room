@@ -18,24 +18,26 @@ import { init } from 'next/dist/compiled/webpack/webpack';
 const client = generateClient<Schema>();
 
 const MapLeaflet = () => {
-  
-  const [InitialGeometry, setInitialGeometry] = useState<Schema["InitialGeometry"]["type"][]>([]);
-
-  const fetchInitialGeometry = async () => {
-    const respon  = await client.models.InitialGeometry.list({
-      filter: {
-        type: {
-          eq: "FeatureCollection"
-        }
-      }
-    });
-    setInitialGeometry(respon.data);
-    console.log(respon)
-  };
-
   useEffect(() => {
+    // Mover a definição de `fetchInitialGeometry` para dentro do `useEffect`
+    async function fetchInitialGeometry() {
+      try {
+        const response = await client.models.InitialGeometry.list({
+          filter: {
+            type: {
+              eq: "FeatureCollection"
+            }
+          }
+        });
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching initial geometries:", error);
+      }
+    }
+  
+    // Chamar a função `fetchInitialGeometry`
     fetchInitialGeometry();
-  }, []);
+  }, []); // Adicione dependências se necessário
 
 
   return (

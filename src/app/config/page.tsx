@@ -4,16 +4,20 @@ import { getCurrentUser } from "aws-amplify/auth";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../../amplify/data/resource";
 
+
+const client = generateClient<Schema>({
+    authMode: "userPool"
+});
+
 export default async function Config() {
     try {
-        const authUser = await getCurrentUser()
-        console.log("Usuario Autenticação: " ,authUser)
-        // const client = generateClient<Schema>({
-        //     authMode: "userPool"
-        // });
-        // const response = await client.models.InitialGeometry.list();
-        // console.log("Response:", response);
-        // console.log("InitialGeometrys:", response.data);
+        const response = await client.models.InitialGeometry.list({
+          filter:{
+            type: { eq: "FeatureCollection"}
+          }
+        });
+        console.log("Response:", response);
+        console.log("InitialGeometrys:", response.data);
       } catch (error) {
         
         console.error("Error fetching InitialGeometrys:", error);

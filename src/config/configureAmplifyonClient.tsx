@@ -37,7 +37,7 @@ const config =
                 return {}; // Retornar um objeto vazio em caso de erro
               }
             }
-          }
+          } 
         }
       }
     : require("../../amplify_outputs.json");
