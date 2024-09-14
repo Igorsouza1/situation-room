@@ -17,6 +17,12 @@ const config = process.env.NODE_ENV === 'production'
         }
   
     },
+    data: {
+      aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
+      url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
+      default_authorization_type: 'AMAZON_COGNITO_USER_POOLS', // ou outro tipo de autorização
+      authorization_types: ['AMAZON_COGNITO_USER_POOLS'], // Lista de tipos de autorização
+    },
     API: {
       GraphQL: {
         headers: async () => {
