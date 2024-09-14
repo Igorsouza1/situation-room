@@ -18,8 +18,10 @@ try {
         headers: async () => {
           try {
             const currentSession = await fetchAuthSession();
+            console.log(currentSession);
             if (currentSession.tokens) {
               const idToken = currentSession.tokens.idToken?.toString();
+              console.log(idToken);
               return { Authorization: idToken };
             } else {
               signOut();
@@ -34,7 +36,7 @@ try {
     }
   });
   console.log("Amplify configured successfully");
-
+  console.log(awsconfig)
 } catch (error) {
   console.error("Error configuring Amplify:", error);
 }

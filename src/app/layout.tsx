@@ -22,9 +22,28 @@ const awsconfig =
 try {
   Amplify.configure(awsconfig, {
     ssr: true,
-    
+    API: {
+      GraphQL: {
+        headers: async () => {
+          try {
+            const currentSession = await fetchAuthSession();
+            if (currentSession.tokens) {
+              const idToken = currentSession.tokens.idToken?.toString();
+              return { Authorization: idToken };
+            } else {
+              signOut();
+              return {}; // Retornar um objeto vazio em vez de undefined
+            }
+          } catch (error) {
+            signOut();
+            return {}; // Retornar um objeto vazio em caso de erro
+          }
+        },
+      },
+    },
   });
   console.log("Amplify configured successfully");
+  console.log(awsconfig)
 } catch (error) {
   console.error("Error configuring Amplify:", error);
 }
