@@ -11,14 +11,15 @@ import "leaflet-defaulticon-compatibility";
 import type { Schema } from "../../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
-const client = generateClient<Schema>();
-console.log(client)
+
 
 const MapLeaflet = () => {
   const [initialGeometry, setInitialGeometry] = useState<Schema["InitialGeometry"]["type"][]>([]);
 
   const fetchInitialGeometry = async () => {
     try{
+      const client = generateClient<Schema>();
+      console.log(client)
       const { data: items, errors } = await client.models.InitialGeometry.list({
         filter:{
           type: { eq: "FeatureCollection" }
