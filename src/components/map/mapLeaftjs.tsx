@@ -22,7 +22,8 @@ const MapLeaflet = () => {
       const { data: items, errors } = await client.models.InitialGeometry.list({
         filter:{
           type: { eq: "FeatureCollection" }
-        }
+        },
+        nextToken: null,
       });
       console.log(errors)
       setInitialGeometry(items);
