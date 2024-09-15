@@ -17,7 +17,11 @@ const config =  {
   },
   
   data: {
-    data
+    aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
+    url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
+    default_authorization_type: 'userPool',
+    authorization_types: ['userPool'],
+
   },
   API: {
     GraphQL: {
