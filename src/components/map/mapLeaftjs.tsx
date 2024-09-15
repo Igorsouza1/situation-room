@@ -18,14 +18,19 @@ const MapLeaflet = () => {
   const [initialGeometry, setInitialGeometry] = useState<Schema["InitialGeometry"]["type"][]>([]);
 
   const fetchInitialGeometry = async () => {
-    const { data: items, errors } = await client.models.InitialGeometry.list({
-      filter:{
-        type: { eq: "FeatureCollection" }
-      }
-    });
-    console.log(errors)
-    setInitialGeometry(items);
-    console.log(items);
+    try{
+      const { data: items, errors } = await client.models.InitialGeometry.list({
+        filter:{
+          type: { eq: "FeatureCollection" }
+        }
+      });
+      console.log(errors)
+      setInitialGeometry(items);
+      console.log(items);
+    }catch(error){
+      console.error(error);
+    }
+   
   };
 
   useEffect(() => {
