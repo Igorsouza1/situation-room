@@ -67,14 +67,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <>
+    
+    <ConfigureAmplifyClientSide />
     <html lang="en">
+      
       <body className={inter.className}>
         <>
-        <ConfigureAmplifyClientSide />
         {children}
         </>
       <Toaster />
       </body>
     </html>
+    </>
   );
 }
