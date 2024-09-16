@@ -18,12 +18,14 @@ const config =  {
   
   data: {
     aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
-    default_authorization_type: 'userPool',
-    authorization_types: ['userPool'],
+    default_authorization_type: 'AMAZON_COGNITO_USER_POOLS',
+    authorization_types: ['AMAZON_COGNITO_USER_POOLS']
 
   },
   API: {
     GraphQL: {
+      endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
+      default_authorization_type: 'AMAZON_COGNITO_USER_POOLS',
       headers: async () => {
         try {
           const currentSession = await fetchAuthSession();
@@ -39,7 +41,6 @@ const config =  {
           return {}; // Retornar um objeto vazio em caso de erro
         }
       },
-      endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL
     },
   },
   
