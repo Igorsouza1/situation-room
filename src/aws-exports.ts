@@ -25,8 +25,6 @@ const config =  {
   },
   API: {
     GraphQL: {
-      endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
-      default_authorization_type: 'AMAZON_COGNITO_USER_POOLS',
       headers: async () => {
         try {
           const currentSession = await fetchAuthSession();
