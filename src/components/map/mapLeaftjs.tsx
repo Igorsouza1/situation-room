@@ -23,8 +23,7 @@ const MapLeaflet = () => {
       const { data: items, errors } = await client.models.InitialGeometry.list({
         filter:{
           type: { eq: "FeatureCollection" }
-        },
-        nextToken: null,
+        }
       });
       console.log(errors)
       setInitialGeometry(items);
@@ -36,16 +35,7 @@ const MapLeaflet = () => {
   };
 
   useEffect(() => {
-    if(typeof window !== 'undefined'){
-
-      const timer = setTimeout(() => {
-        fetchInitialGeometry();
-      }, 5000); // 5000 ms = 5 seconds
-      
-    // Cleanup function to clear the timeout if the component unmounts
-    return () => clearTimeout(timer);
-    }
-
+    fetchInitialGeometry();
   }, []);
 
   console.log(initialGeometry);
