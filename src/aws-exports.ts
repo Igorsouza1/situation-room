@@ -23,25 +23,25 @@ const config =  {
     url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL
 
   },
-  API: {
-    GraphQL: {
-      headers: async () => {
-        try {
-          const currentSession = await fetchAuthSession();
-          if (currentSession.tokens) {
-            const idToken = currentSession.tokens.idToken?.toString();
-            return { Authorization: idToken };
-          } else {
-            signOut();
-            return {}; // Retornar um objeto vazio em vez de undefined
-          }
-        } catch (error) {
-          signOut();
-          return {}; // Retornar um objeto vazio em caso de erro
-        }
-      },
-    },
-  },
+  // API: {
+  //   GraphQL: {
+  //     headers: async () => {
+  //       try {
+  //         const currentSession = await fetchAuthSession();
+  //         if (currentSession.tokens) {
+  //           const idToken = currentSession.tokens.idToken?.toString();
+  //           return { Authorization: idToken };
+  //         } else {
+  //           signOut();
+  //           return {}; // Retornar um objeto vazio em vez de undefined
+  //         }
+  //       } catch (error) {
+  //         signOut();
+  //         return {}; // Retornar um objeto vazio em caso de erro
+  //       }
+  //     },
+  //   },
+  // },
   
 };
 
