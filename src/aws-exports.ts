@@ -19,7 +19,8 @@ const config =  {
   data: {
     aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
     default_authorization_type: 'AMAZON_COGNITO_USER_POOLS',
-    authorization_types: ['AMAZON_COGNITO_USER_POOLS']
+    authorization_types: ['AMAZON_COGNITO_USER_POOLS'],
+    url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL
 
   },
   API: {
