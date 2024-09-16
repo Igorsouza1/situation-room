@@ -27,23 +27,21 @@ const config = {
   
   API: {
     GraphQL: {
-      endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
-      defaultAuthMode: 'AMAZON_COGNITO_USER_POOLS', // Valor como string literal
-      // headers: async () => {
-      //   try {
-      //     const currentSession = await fetchAuthSession();
-      //     if (currentSession.tokens) {
-      //       const idToken = currentSession.tokens.idToken?.toString();
-      //       return { Authorization: idToken };
-      //     } else {
-      //       signOut();
-      //       return {}; // Retornar um objeto vazio em vez de undefined
-      //     }
-      //   } catch (error) {
-      //     signOut();
-      //     return {}; // Retornar um objeto vazio em caso de erro
-      //   }
-      // },
+      headers: async () => {
+        try {
+          const currentSession = await fetchAuthSession();
+          if (currentSession.tokens) {
+            const idToken = currentSession.tokens.idToken?.toString();
+            return { Authorization: idToken };
+          } else {
+            signOut();
+            return {}; // Retornar um objeto vazio em vez de undefined
+          }
+        } catch (error) {
+          signOut();
+          return {}; // Retornar um objeto vazio em caso de erro
+        }
+      },
     },
   },
 };
