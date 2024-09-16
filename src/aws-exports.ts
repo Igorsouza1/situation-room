@@ -39,6 +39,7 @@ const config =  {
           return {}; // Retornar um objeto vazio em caso de erro
         }
       },
+      endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL
     },
   },
   
