@@ -5,7 +5,7 @@ import { error } from 'node:console';
 import { Errors } from 'aws-cdk-lib/aws-stepfunctions';
 
 
-const config =  {
+const config = {
   Auth: {
     Cognito: {
       identityPoolId: process.env.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID!,
@@ -20,16 +20,15 @@ const config =  {
   
   data: {
     aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
-    default_authorization_type: 'AMAZON_COGNITO_USER_POOLS',
-    authorization_types: ['AMAZON_COGNITO_USER_POOLS'],
-    url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL
-
+    default_authorization_type: 'AMAZON_COGNITO_USER_POOLS', // Valor como string literal
+    authorization_types: ['AMAZON_COGNITO_USER_POOLS'], // Valor como string literal
+    url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   },
+  
   API: {
     GraphQL: {
       endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL!,
-      defaultAuthMode: 'AMAZON_COGNITO_USER_POOLS',
-
+      defaultAuthMode: 'AMAZON_COGNITO_USER_POOLS', // Valor como string literal
       // headers: async () => {
       //   try {
       //     const currentSession = await fetchAuthSession();
@@ -47,7 +46,6 @@ const config =  {
       // },
     },
   },
-  
 };
 
 export default config;
