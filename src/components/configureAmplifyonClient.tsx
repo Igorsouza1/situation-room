@@ -4,9 +4,34 @@
 
 import outputs from '../../amplify_outputs.json';
 import { Amplify } from 'aws-amplify';
+import { fetchAuthSession, signOut } from '@aws-amplify/auth';
+
+
 
 Amplify.configure(outputs, {
-  ssr: true // required when using Amplify with Next.js
+  ssr: true, // required when using Amplify with Next.js
+  API: {
+    GraphQL: {
+      headers: async () => {
+        try {
+          console.log("Fetching auth session");
+          const currentSession = await fetchAuthSession();
+          console.log(currentSession);
+          if (currentSession.tokens) {
+            const idToken = currentSession.tokens.idToken?.toString();
+            console.log(idToken);
+            return { Authorization: idToken };
+          } else {
+            signOut();
+            return {}; // Retornar um objeto vazio em vez de undefined
+          }
+        } catch (error) {
+          signOut();
+          return {}; // Retornar um objeto vazio em caso de erro
+        }
+      }
+    }
+  }
 });
 
 export default function RootLayoutThatConfiguresAmplifyOnTheClient({
