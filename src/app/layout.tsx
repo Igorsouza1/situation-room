@@ -4,7 +4,7 @@ import "./globals.css";
 
 import { Toaster } from "@/components/ui/toaster";
 
-import ConfigureAmplifyClientSide from "@/config/configureAmplifyonClient";
+import ConfigureAmplifyClientSide from '@/components/configureAmplifyonClient';
 import { Amplify } from "aws-amplify";
 import outputs from "../../amplify_outputs.json";
 import { fetchAuthSession, signOut } from "aws-amplify/auth";
@@ -53,14 +53,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <ConfigureAmplifyClientSide />
-      <html lang="en">
+    <html lang="en">
         <body className={inter.className}>
-          {children}
+        <>
+          <ConfigureAmplifyClientSide >
+            {children}
+          </ConfigureAmplifyClientSide>
+          
           <Toaster />
+        </>
         </body>
       </html>
-    </>
   );
 }
