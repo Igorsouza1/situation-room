@@ -10,37 +10,26 @@ import "leaflet-defaulticon-compatibility";
 // import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import { fetchAuthSession } from 'aws-amplify/auth';
 
 
 
 
 const MapLeaflet = () => {
   const [initialGeometry, setInitialGeometry] = useState<Schema["InitialGeometry"]["type"][]>([]);
-
+  
   const fetchInitialGeometry = async () => {
     try{
-      const currentSession = await fetchAuthSession();
-      if (currentSession.tokens) {
-        const idToken = currentSession.tokens.idToken?.toString();
-        const client = generateClient<Schema>();
+      const client = generateClient<Schema>();
         console.log(client)
         const { data: items, errors } = await client.models.InitialGeometry.list({
           filter:{
-            type: { eq: "FeatureCollection" }
+            name: { eq: "Bacia do Rio da Prata" }
           },
-          nextToken: idToken,
         });
         console.log(errors)
         setInitialGeometry(items);
         console.log(items);
-      }else{
-        console.log("No current session");
-      
-      }
-      
-      
-    }catch(error){
+      }catch(error){
       console.error(error);
     }
    
