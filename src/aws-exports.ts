@@ -20,8 +20,8 @@ const config = {
   
   data: {
     aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
-    default_authorization_type: 'userPool', // Valor como string literal
-    authorization_types: ['userPool'], // Valor como string literal
+    default_authorization_type: 'iam', // Valor como string literal
+    authorization_types: ['iam'], // Valor como string literal
     url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   },
 

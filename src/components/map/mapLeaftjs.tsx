@@ -19,7 +19,6 @@ const MapLeaflet = () => {
   
   const fetchInitialGeometry = async () => {
     try{
-      const client = generateClient<Schema>();
         console.log(client)
         const { data: items, errors } = await client.models.InitialGeometry.list({
           filter:{
