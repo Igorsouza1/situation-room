@@ -24,6 +24,14 @@ const config = {
     authorization_types: ['userPool'], // Valor como string literal
     url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   },
+
+  API: {
+    GraphQL: {
+      endpoint: 'https://mtbla22ahfevfl4sdtipq776tm.appsync-api.sa-east-1.amazonaws.com/graphql',
+      region: 'sa-east-1',
+      defaultAuthMode: 'iam',
+    }
+}
   
   // API: {
   //   GraphQL: {
