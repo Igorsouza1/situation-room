@@ -14,12 +14,9 @@ Amplify.configure(outputs, {
     GraphQL: {
       headers: async () => {
         try {
-          console.log("Fetching auth session");
           const currentSession = await fetchAuthSession();
-          console.log(currentSession);
           if (currentSession.tokens) {
             const idToken = currentSession.tokens.idToken?.toString();
-            console.log(idToken);
             return { Authorization: idToken };
           } else {
             signOut();

@@ -16,14 +16,15 @@ const client = generateClient<Schema>();
 
 const MapLeaflet = () => {
   const [initialGeometry, setInitialGeometry] = useState<Schema["InitialGeometry"]["type"][]>([]);
-
+  
   const fetchInitialGeometry = async () => {
     try{
+      const client = generateClient<Schema>();
         console.log(client)
         const { data: items, errors } = await client.models.InitialGeometry.list({
           filter:{
-            type: { eq: "FeatureCollection" }
-          }
+            name: { eq: "Bacia do Rio da Prata" }
+          },
         });
         console.log(errors)
         setInitialGeometry(items);
