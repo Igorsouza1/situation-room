@@ -12,18 +12,28 @@ const config = {
       region: process.env.NEXT_PUBLIC_AWS_REGION!,
       userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
       userPoolClientId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID!,
+      allowGuestAccess: true,
       loginWith: {
         email: true,
       },
+
     },
   },
   
   data: {
     aws_region: process.env.NEXT_PUBLIC_AWS_REGION!,
-    default_authorization_type: 'userPool', // Valor como string literal
-    authorization_types: ['userPool'], // Valor como string literal
+    default_authorization_type: 'identityPool', // Valor como string literal
+    authorization_types: ['identityPool'], // Valor como string literal
     url: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   },
+
+  API: {
+    GraphQL: {
+      endpoint: 'https://mtbla22ahfevfl4sdtipq776tm.appsync-api.sa-east-1.amazonaws.com/graphql',
+      region: 'sa-east-1',
+      defaultAuthMode: 'identityPool',
+    }
+}
   
   // API: {
   //   GraphQL: {
