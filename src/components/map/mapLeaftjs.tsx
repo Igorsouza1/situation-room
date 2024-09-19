@@ -8,6 +8,7 @@ import "leaflet-defaulticon-compatibility";
 
 
 import type { Schema } from "../../../amplify/data/resource";
+import { fetchAuthSession } from '@aws-amplify/auth'
 import { generateClient } from "aws-amplify/data";
 
 
@@ -21,6 +22,9 @@ const MapLeaflet = () => {
     try{
         console.log(client)
         const { data: items, errors } = await client.models.InitialGeometry.list({
+          // headers:{ 
+          //   Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
+          // },
           filter:{
             name: { eq: "Bacia do Rio da Prata" }
           },

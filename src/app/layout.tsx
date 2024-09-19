@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { Toaster } from "@/components/ui/toaster";
+import Auth from "@/components/auth/auth";
+
 
 import ConfigureAmplifyClientSide from '@/components/configureAmplifyonClient';
 // import { Amplify } from "aws-amplify";
@@ -57,7 +59,9 @@ export default function RootLayout({
         <body className={inter.className}>
         <>
           <ConfigureAmplifyClientSide >
+            <Auth>
             {children}
+            </Auth>
           </ConfigureAmplifyClientSide>
           
           <Toaster />
